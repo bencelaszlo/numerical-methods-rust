@@ -1,0 +1,6 @@
+[package]
+name = "numerical_methods_rust"
+version = "0.1.0"
+authors = ["bencelaszlo <bencelaszlo@protonmail.com>"]
+
+[dependencies]
