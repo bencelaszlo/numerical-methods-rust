@@ -67,27 +67,46 @@ pub fn quicksort(low: i32, high: i32, arr: &mut [f32]) {
 		let p: i32 = partition(low, high, arr);
 		quicksort(low, p, arr);
 		quicksort(p+1, high, arr);
+	} else {
 		return;
 	}
 }
 
 fn partition(low: i32, high: i32, arr: &mut [f32]) -> i32 {
 	let pivot: f32;
-	pivot  = arr[( (low + high) / 2) as usize];
+
+	// Choose pivot element with the "median-of-three" rule
+	let mid: i32 = (low + high) / 2;
+	if arr[mid as usize] < arr[low as usize] {
+		arr.swap(low as usize, high as usize);
+	}
+	if arr[high as usize] < arr[low as usize] {
+		arr.swap(low as usize, high as usize);
+	}
+	if arr[mid as usize] < arr[high as usize] {
+		arr.swap(mid as usize, high as usize);
+	}
+	pivot = arr[high as usize];
+
 	let mut i: i32;
 	let mut j: i32;
 
-	i = low;
-	j = high;
-    println!("i: {}, j: {}", i, j);
+	i = low - 1;
+	j = high + 1;
 
 	loop {
-		while arr[i as usize] < pivot {
+		loop {
 			i += 1;
+			if arr[i as usize] >= pivot {
+				break;
+			}
 		}
 
-		while arr[j as usize] > pivot {
+		loop {
 			j -= 1;
+			if arr[j as usize] <= pivot {
+				break;
+			}
 		}
 
 		if i >= j {
@@ -95,8 +114,6 @@ fn partition(low: i32, high: i32, arr: &mut [f32]) -> i32 {
 		}
 
 		//SWAP
-		arr[i as usize] = arr[i as usize] + arr[j as usize];
-		arr[j as usize] = arr[i as usize] - arr[j as usize];
-		arr[i as usize] = arr[i as usize] - arr[j as usize];
+		arr.swap(i as usize, j as usize);
 	}
 }
