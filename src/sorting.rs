@@ -12,9 +12,7 @@ fn heapify(a: &mut [f32], n: usize, i: usize) {
 	}
 	
 	if largest != i {
-		let temp = a[largest];
-		a[largest] = a[i];
-		a[i] = temp;
+		a.swap(largest, i);
 		
 		heapify(a, n, largest);
 	}
@@ -29,11 +27,9 @@ pub fn heapsort(n: usize, a: &mut [f32]) {
 	}
 
 	//#One by one extract elements
-	i = n -1;
+	i = n - 1;
 	while i > 0 {
-		let temp = a[0];
-		a[0] = a[i];
-		a[i] = temp;
+		a.swap(0, i);
 		heapify(a, i, 0);
 		i -= 1;
 	}
