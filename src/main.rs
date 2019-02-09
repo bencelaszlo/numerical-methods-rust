@@ -1,4 +1,6 @@
 mod sorting;
+mod integration;
+mod interpolation;
 
 fn main() {
     println!("SORTING");
@@ -28,6 +30,20 @@ fn main() {
     for _k in 0..test_array.len() {
 		print!("{}, ", test_array[_k]);
 	}
+
+    println!("\n\n\n");
+
+    println!("INTERPOLATION");
+
+    println!("\n\nLinear Interpolation");
+    let x_known: [f32; 3] = [0.0, 1.0, 2.0];
+    let y_known: [f32; 3] = [1.0, 4.0, 5.0];
+    let x: [f32; 3] = [0.5, 1.25, 1.75];
+    let mut y: [f32; 3] = [0.0, 0.0, 0.0];
+    interpolation::linear_interpolation_array(&x_known, &y_known, &x, &mut y);
+    for k in 0..y.len() {
+        print!("{}, ", y[k]);
+    }
 
     println!("\n\n\n");
 }
