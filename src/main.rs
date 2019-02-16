@@ -46,4 +46,15 @@ fn main() {
     }
 
     println!("\n\n\n");
+
+    println!("INTEGRATION OF FUNCTIONS");
+
+    println!("\n\nTrapedozial Rule");
+	println!("{}", integration::q_trapedozial_rule(0.0, 3000.0) );
+
+    println!("\n\nSimpson's Rule");
+	println!("{}", integration::q_simpsons_rule(0.0, 3000.0) );
+
+    println!("\n\nGauss-Legendre");
+    println!("{}", integration::q_gauss_legendre(0.0, 3000.0) );
 }
