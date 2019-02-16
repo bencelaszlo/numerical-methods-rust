@@ -1,4 +1,8 @@
-fn trapedozial_rule(a: f32, b: f32, n: i32) -> f32 {
+fn parameter_function(x: f32) -> f32 {
+	return x * x; //Define parameter function here.
+}
+
+pub fn trapedozial_rule(a: f32, b: f32, n: i32) -> f32 {
 	let mut _x: f32;
 	let	mut _s: f32;
 	let h: f32;
@@ -13,7 +17,7 @@ fn trapedozial_rule(a: f32, b: f32, n: i32) -> f32 {
 	return 0.5 * (parameter_function(a) + 2.0 * _s + parameter_function(b) );
 }
 
-fn q_trapedozial_rule(a: f32, b: f32) -> f32 {
+pub fn q_trapedozial_rule(a: f32, b: f32) -> f32 {
 	const J_MAX: i32 = 20;
 	const EPS: f32 =  0.00001;
 	
@@ -21,7 +25,6 @@ fn q_trapedozial_rule(a: f32, b: f32) -> f32 {
 	let olds: f32;
 	
 	olds = -0.00000000000000000000000000001; // Any number that is unlikely to be the average of the function at its endpoints will do here
-	println!("{}", olds);
 	for j in 0..J_MAX {
 		s = trapedozial_rule(a, b, j);
 		if j > 5 { //avoid spurious early convergance
@@ -35,7 +38,7 @@ fn q_trapedozial_rule(a: f32, b: f32) -> f32 {
 	return s;
 }
 
-fn q_simpsons_rule(a: f32, b: f32) -> f32 {
+pub fn q_simpsons_rule(a: f32, b: f32) -> f32 {
 	const J_MAX: i32 = 20;
 	const EPS: f32 = 0.000001;
 		
@@ -61,20 +64,25 @@ fn q_simpsons_rule(a: f32, b: f32) -> f32 {
 	return s;
 }
 
-/*fn q_rombergs_method(a: f32, b: f32) {
-	const EPS: f32 = 0.000001;
-	const J_MAX: i32 = 20;
-	const J_MAX_P: i32 = JMAX + 1;
-	const K: i32 = 5;
+pub fn q_gauss_legendre(a: f32, b: f32) -> f32 {
+	let xr: f32;
+	let xm: f32;
+	let mut dx: f32;
+	let mut s: f32;
 	
+	const X: [f32; 6] = [0.0, 0.1488743389, 0.4333953941, 0.6794095682, 0.8650633666,0.9739065285];
+	const W: [f32; 6] = [0.0, 0.2955242247, 0.2692667193, 0.2190863625, 0.1494513491, 0.0666713443];
 	
-}*/
-
-fn parameter_function(x: f32) -> f32 {
-	return x * x; //Define parameter function here.
-}
-
-fn main() {
-	println!("{}", q_trapedozial_rule(0.0, 10.0));
-	println!("{}", q_simpsons_rule(0.0, 10.0));
+	xm = 0.5 * (b + a);
+	xr = 0.5 * (b - a);
+	
+	s = 0.0;
+	
+	for j in 0..5 {
+		dx = xr * X[j];
+		s += W[j] * parameter_function(xm + dx) + parameter_function(xm - dx);
+	}
+	
+	let result: f32 = s * xr;
+	return result;
 }
