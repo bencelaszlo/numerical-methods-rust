@@ -12,7 +12,7 @@ fn linear_interpolation(x1: f32, y1: f32, x0: f32, y0: f32, x: f32) -> f32 {
     return y;
 }
 
-pub fn linear_interpolation_array(X: &[f32], Y: &[f32], x: &[f32], y: &mut [f32]) {
+pub fn linear_interpolation_array(X: &[f32], Y: &[f32], x: Vec<f32>, y: &mut Vec<f32>) {
     for i in 0..x.len() {
         let mut lower_bound_index: usize = 0;
         let mut higher_bound_index: usize = 0;
