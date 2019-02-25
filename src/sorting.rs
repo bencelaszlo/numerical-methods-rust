@@ -1,4 +1,4 @@
-fn heapify(a: &mut [f32], n: usize, i: usize) {
+fn heapify(a: &mut Vec<f32>, n: usize, i: usize) {
 	let mut largest: usize = i;
 	let l = 2 * i + 1;
 	let r = 2 * i + 2;
@@ -18,7 +18,7 @@ fn heapify(a: &mut [f32], n: usize, i: usize) {
 	}
 }
 
-pub fn heapsort(n: usize, a: &mut [f32]) {
+pub fn heapsort(n: usize, a: &mut Vec<f32>) {
 	//Build a maxheap
 	let mut i: usize = n;
 	while i > 0 {
@@ -37,7 +37,7 @@ pub fn heapsort(n: usize, a: &mut [f32]) {
 
 // ~N^1.25 routine
 // Sorts an array arr[1..n] into ascending numerical order, by Shell's method. n is input; arr is replaced on output by its sorted rearrangement
-pub fn shell_sort(n: i32, a: &mut [f32]) {
+pub fn shell_sort(n: i32, a: &mut Vec<f32>) {
 	let mut gap: i32 =  (n / 2) as i32;
 	let mut temp: f32;
 	let mut j: i32;
@@ -58,7 +58,7 @@ pub fn shell_sort(n: i32, a: &mut [f32]) {
 }
 
 //Hoare's Partition Schema
-pub fn quicksort(low: i32, high: i32, arr: &mut [f32]) {
+pub fn quicksort(low: i32, high: i32, arr: &mut Vec<f32>) {
 	if low < high {
 		let p: i32 = partition(low, high, arr);
 		quicksort(low, p, arr);
@@ -68,7 +68,7 @@ pub fn quicksort(low: i32, high: i32, arr: &mut [f32]) {
 	}
 }
 
-fn partition(low: i32, high: i32, arr: &mut [f32]) -> i32 {
+fn partition(low: i32, high: i32, arr: &mut Vec<f32>) -> i32 {
 	let pivot: f32;
 
 	// Choose pivot element with the "median-of-three" rule
