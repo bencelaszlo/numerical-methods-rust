@@ -12,32 +12,32 @@ fn linear_interpolation(x1: f32, y1: f32, x0: f32, y0: f32, x: f32) -> f32 {
     return y;
 }
 
-pub fn linear_interpolation_array(X: &[f32], Y: &[f32], x: Vec<f32>, y: &mut Vec<f32>) {
+pub fn linear_interpolation_array(x_known: &[f32], y_known: &[f32], x: Vec<f32>, y: &mut Vec<f32>) {
     for i in 0..x.len() {
         let mut lower_bound_index: usize = 0;
         let mut higher_bound_index: usize = 0;
 
-         for j in 0..X.len() {
-            if X[j] < X[lower_bound_index] {
+         for j in 0..x_known.len() {
+            if x_known[j] < x_known[lower_bound_index] {
                 lower_bound_index = j;
             }
 
-            if X[j] > X[higher_bound_index] {
+            if x_known[j] > x_known[higher_bound_index] {
                 higher_bound_index = j;
             }
         }
 
         
-        for j in 0..X.len() {
-            if X[j] <= x[i] && X[j] > X[lower_bound_index] {
+        for j in 0..x_known.len() {
+            if x_known[j] <= x[i] && x_known[j] > x_known[lower_bound_index] {
                 lower_bound_index = j;
             }
 
-            if X[j] >= x[i] && X[j] < X[higher_bound_index] {
+            if x_known[j] >= x[i] && x_known[j] < x_known[higher_bound_index] {
                 higher_bound_index = j;
             }
         }
 
-        y[i] = linear_interpolation(X[higher_bound_index], Y[higher_bound_index], X[lower_bound_index], Y[lower_bound_index], x[i]);
+        y[i] = linear_interpolation(x_known[higher_bound_index], y_known[higher_bound_index], x_known[lower_bound_index], y_known[lower_bound_index], x[i]);
     }
 }
