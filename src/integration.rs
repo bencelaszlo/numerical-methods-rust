@@ -3,18 +3,18 @@ fn parameter_function(x: f32) -> f32 {
 }
 
 pub fn trapedozial_rule(a: f32, b: f32, n: i32) -> f32 {
-	let mut _x: f32;
-	let	mut _s: f32;
+	let mut x: f32;
+	let	mut s: f32;
 	let h: f32;
 	
 	h = (b-a) / (n as f32);
-	_x = a;
-	_s = 0.0;
-	for _i in 1..n {
-		_x += h;
-		_s += parameter_function(_x);
+	x = a;
+	s = 0.0;
+	for _ in 1..n {
+		x += h;
+		s += parameter_function(x);
 	}
-	return 0.5 * (parameter_function(a) + 2.0 * _s + parameter_function(b) );
+	return 0.5 * (parameter_function(a) + 2.0 * s + parameter_function(b) );
 }
 
 pub fn q_trapedozial_rule(a: f32, b: f32) -> f32 {
