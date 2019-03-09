@@ -4,28 +4,32 @@ mod integration;
 mod interpolation;
 
 fn main() {
+    let mut test_numbers: Vec<f32> = Vec::new();
+    let _file_read_result = utils::read_numbers_from_file("input.txt".to_string(), &mut test_numbers);
     println!("SORTING");
-    let mut test_numbers = vec![6.4, -0.21, 3.1415926, 4.2, 2.225, 2.3, 1.2, 2.4, 5.2];
 	for k in 0..test_numbers.len() {
 		print!("{}, ", test_numbers[k]);
 	}
 
+    let mut test_numbers: Vec<f32> = Vec::new();
+    let _file_read_result = utils::read_numbers_from_file("input.txt".to_string(), &mut test_numbers);
     println!("\n\nShell Sort");
-    test_numbers = vec![6.4, -0.21, 3.1415926, 4.2, 2.225, 2.3, 1.2, 2.4, 5.2];
     sorting::shell_sort(test_numbers.len() as i32, &mut test_numbers);
 	for k in 0..test_numbers.len() {
 		print!("{}, ", test_numbers[k]);
 	}
     
+    let mut test_numbers: Vec<f32> = Vec::new();
+    let _file_read_result = utils::read_numbers_from_file("input.txt".to_string(), &mut test_numbers);
     println!("\n\nHeap Sort");
-    test_numbers = vec![6.4, -0.21, 3.1415926, 4.2, 2.225, 2.3, 1.2, 2.4, 5.2];
     sorting::heapsort(test_numbers.len(), &mut test_numbers);
     for k in 0..test_numbers.len() {
 		print!("{}, ", test_numbers[k]);
 	}
 
+    let mut test_numbers: Vec<f32> = Vec::new();
+    let _file_read_result = utils::read_numbers_from_file("input.txt".to_string(), &mut test_numbers);
     println!("\n\nQuicksort");
-    test_numbers = vec![6.4, -0.21, 3.1415926, 4.2, 2.225, 2.3, 1.2, 2.4, 5.2];
     sorting::quicksort(0, (test_numbers.len() - 1) as i32, &mut test_numbers);
     for k in 0..test_numbers.len() {
 		print!("{}, ", test_numbers[k]);
@@ -35,12 +39,13 @@ fn main() {
 
     println!("INTERPOLATION");
 
+    let mut x: Vec<f32> = Vec::new();
+    let _file_read_result = utils::read_numbers_from_file("input.txt".to_string(), &mut x);
     println!("\n\nLinear Interpolation");
     let x_known: [f32; 7] = [-250.0, -200.0, -100.0, 0.0, 100.0, 200.0, 250.0];
     let y_known: [f32; 7] = [0.0, 280.0, 540.0, 640.0, 1200.0, 1600.0, 1800.0];
-    let x: Vec<f32> = utils::read_numbers_from_file("input.txt".to_string() );
     let mut y: Vec<f32> = x.clone();
-    interpolation::linear_interpolation_array(&x_known, &y_known, x, &mut y);
+    interpolation::linear_interpolation_array(&x_known, &y_known, test_numbers, &mut y);
     for k in 0..y.len() {
         print!("{}\n", y[k]);
     }

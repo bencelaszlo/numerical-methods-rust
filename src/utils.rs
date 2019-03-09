@@ -1,29 +1,17 @@
 use std::{
     fs::File,
-    io::{prelude::*, BufReader},
-    path::Path,
+    io::{BufRead, BufReader},
 };
 
-fn lines_from_file<P>(filename: P) -> Vec<String>
-where
-    P: AsRef<Path>,
-{
-    let file = File::open(filename).expect("File doesn't exists.");
-    let buf = BufReader::new(file);
-    buf.lines()
-        .map(|l| l.expect("Could not parse line"))
-        .collect()
-}
+pub fn read_numbers_from_file(file_path: String, numbers_vector: &mut Vec<f32>) -> std::io::Result<()> {
+    let f = File::open(file_path)?;
+    let f = BufReader::new(f);
 
-pub fn read_numbers_from_file(file_path: String) -> Vec<f32> {
-    let lines = lines_from_file(file_path);
-
-    let mut numbers: Vec<f32> = Vec::new();
-
-    for line in lines {
+    for line in f.lines() {
+        let line = line?;
         let number: f32 = line.parse().unwrap();
-        numbers.push(number);
+        numbers_vector.push(number);
     }
 
-    return numbers;
+    Ok(())
 }
