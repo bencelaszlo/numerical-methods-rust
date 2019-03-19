@@ -14,21 +14,21 @@ pub fn trapedozial_rule(a: f32, b: f32, n: i32) -> f32 {
 		x += h;
 		s += parameter_function(x);
 	}
-	return 0.5 * (parameter_function(a) + 2.0 * s + parameter_function(b) );
+	return ( (b - a) / n as f32) * 0.5 * (parameter_function(a) + 2.0 * s + parameter_function(b) );
 }
 
-pub fn q_trapedozial_rule(a: f32, b: f32) -> f32 {
-	const J_MAX: i32 = 20;
-	const EPS: f32 =  0.00001;
-	
+pub fn q_trapedozial_rule(a: f32, b: f32, j_max: i32) -> f32 {
+	const EPS: f32 =  0.00001; //accurancy
+	const J_MIN_ITERATION_COUNT: i32 = 5;
+
 	let mut s: f32 = 0.0;
 	let olds: f32;
 	
 	olds = -0.00000000000000000000000000001; // Any number that is unlikely to be the average of the function at its endpoints will do here
-	for j in 0..J_MAX {
+	for j in 0..j_max {
 		s = trapedozial_rule(a, b, j);
-		if j > 5 { //avoid spurious early convergance
-			if (s-olds).abs() < EPS * olds.abs() {
+		if j > J_MIN_ITERATION_COUNT { //avoid spurious early convergance
+			if (s - olds).abs() < EPS * olds.abs() {
 				if s == 0.0 && olds == 0.0 {
 					return s;
 				}
@@ -38,9 +38,15 @@ pub fn q_trapedozial_rule(a: f32, b: f32) -> f32 {
 	return s;
 }
 
-pub fn q_simpsons_rule(a: f32, b: f32) -> f32 {
-	const J_MAX: i32 = 20;
-	const EPS: f32 = 0.000001;
+pub fn q_trapedozial_rule_vec(a: f32, b: f32, j_max_vec: &Vec<i32>, result_vec: &mut Vec<f32>) {
+	for i in 0..j_max_vec.len() {
+		result_vec.push(q_trapedozial_rule(a, b, j_max_vec[i]) );
+	}
+}
+
+pub fn q_simpsons_rule(a: f32, b: f32, j_max: i32) -> f32 {
+	const EPS: f32 = 0.000001; //accurancy
+	const J_MIN_ITERATION_COUNT: i32 = 5;
 		
 	let mut s: f32 = 0.0;
 	let mut st: f32;
@@ -50,11 +56,11 @@ pub fn q_simpsons_rule(a: f32, b: f32) -> f32 {
 	os = -0.00000000000000000000000000001;
 	ost = os;
 	
-	for j in 0..J_MAX {
+	for j in 0..j_max {
 		st = trapedozial_rule(a, b, j);
 		s = (4.0 * st - ost) / 3.0;
-		if j < 5 {
-			if (s-os).abs() < EPS * os.abs() || (s == 0.0 && os == 0.0) {
+		if j < J_MIN_ITERATION_COUNT {
+			if (s - os).abs() < EPS * os.abs() || (s == 0.0 && os == 0.0) {
 				return s;
 			}
 		}
@@ -62,6 +68,12 @@ pub fn q_simpsons_rule(a: f32, b: f32) -> f32 {
 		ost = st;
 	}
 	return s;
+}
+
+pub fn q_simpsons_rule_vec(a: f32, b: f32, j_max_vec: &Vec<i32>, result_vec: &mut Vec<f32>) {
+	for i in 0..j_max_vec.len() {
+		result_vec.push(q_simpsons_rule(a, b, j_max_vec[i]) );
+	}
 }
 
 pub fn q_gauss_legendre(a: f32, b: f32) -> f32 {
