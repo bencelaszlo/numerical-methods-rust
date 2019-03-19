@@ -44,8 +44,8 @@ fn main() {
     println!("\n\nLinear Interpolation");
     let x_known: [f32; 7] = [-250.0, -200.0, -100.0, 0.0, 100.0, 200.0, 250.0];
     let y_known: [f32; 7] = [0.0, 280.0, 540.0, 640.0, 1200.0, 1600.0, 1800.0];
-    let mut y: Vec<f32> = x.clone();
-    interpolation::linear_interpolation_array(&x_known, &y_known, test_numbers, &mut y);
+    let mut y: Vec<f32> = Vec::new();
+    interpolation::linear_interpolation_vec(&x_known, &y_known, test_numbers, &mut y);
     for k in 0..y.len() {
         print!("{}\n", y[k]);
     }
@@ -53,13 +53,31 @@ fn main() {
     println!("\n\n\n");
 
     println!("INTEGRATION OF FUNCTIONS");
+    let mut j_max_vec: Vec<i32> = Vec::new();
+    let _file_read_result = utils::read_numbers_from_file("input.txt".to_string(), &mut j_max_vec);
 
     println!("\n\nTrapedozial Rule");
-	println!("{}", integration::q_trapedozial_rule(0.0, 3000.0) );
+    println!("{}", integration::trapedozial_rule(0.0, 3.0, 40));
+
+    println!("\n\nIterative Trapedozial Rule");
+    let mut result_vec = Vec::new();
+	integration::q_trapedozial_rule_vec(0.0, 3.0, &j_max_vec, &mut result_vec);
+
+    for k in 0..result_vec.len() {
+       println!("{}", result_vec[k]);
+    }
 
     println!("\n\nSimpson's Rule");
-	println!("{}", integration::q_simpsons_rule(0.0, 3000.0) );
+	println!("{}", integration::q_simpsons_rule(0.0, 3.0, 40) );
+
+    println!("\n\nIterative Simpson's Rule");
+    let mut result_vec = Vec::new();
+    integration::q_simpsons_rule_vec(0.0, 3.0, &j_max_vec, &mut result_vec);
+
+    for k in 0..result_vec.len() {
+        println!("{}", result_vec[k]);
+    }
 
     println!("\n\nGauss-Legendre");
-    println!("{}", integration::q_gauss_legendre(0.0, 3000.0) );
+    println!("{}", integration::q_gauss_legendre(0.0, 3.0) );
 }
