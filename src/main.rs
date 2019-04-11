@@ -1,39 +1,44 @@
-mod utils;
-mod sorting;
 mod integration;
 mod interpolation;
+mod sorting;
+mod utils;
 
 fn main() {
     let mut test_numbers: Vec<f32> = Vec::new();
-    let _file_read_result = utils::read_numbers_from_file("input.txt".to_string(), &mut test_numbers);
+    let _file_read_result =
+        utils::read_numbers_from_file("input.txt".to_string(), &mut test_numbers);
     println!("SORTING");
-	for k in 0..test_numbers.len() {
-		print!("{}, ", test_numbers[k]);
-	}
+    for k in 0..test_numbers.len() {
+        print!("{}, ", test_numbers[k]);
+    }
 
     let mut test_numbers: Vec<f32> = Vec::new();
-    let _file_read_result = utils::read_numbers_from_file("input.txt".to_string(), &mut test_numbers);
+    let _file_read_result =
+        utils::read_numbers_from_file("input.txt".to_string(), &mut test_numbers);
     println!("\n\nShell Sort");
     sorting::shell_sort(test_numbers.len() as i32, &mut test_numbers);
-	for k in 0..test_numbers.len() {
-		print!("{}, ", test_numbers[k]);
-	}
-    
+    println!("{}", test_numbers.len());
+    for k in 0..test_numbers.len() {
+        print!("{}, ", test_numbers[k]);
+    }
+
     let mut test_numbers: Vec<f32> = Vec::new();
-    let _file_read_result = utils::read_numbers_from_file("input.txt".to_string(), &mut test_numbers);
+    let _file_read_result =
+        utils::read_numbers_from_file("input.txt".to_string(), &mut test_numbers);
     println!("\n\nHeap Sort");
     sorting::heapsort(test_numbers.len(), &mut test_numbers);
     for k in 0..test_numbers.len() {
-		print!("{}, ", test_numbers[k]);
-	}
+        print!("{}, ", test_numbers[k]);
+    }
 
     let mut test_numbers: Vec<f32> = Vec::new();
-    let _file_read_result = utils::read_numbers_from_file("input.txt".to_string(), &mut test_numbers);
+    let _file_read_result =
+        utils::read_numbers_from_file("input.txt".to_string(), &mut test_numbers);
     println!("\n\nQuicksort");
     sorting::quicksort(0, (test_numbers.len() - 1) as i32, &mut test_numbers);
     for k in 0..test_numbers.len() {
-		print!("{}, ", test_numbers[k]);
-	}
+        print!("{}, ", test_numbers[k]);
+    }
 
     println!("\n\n\n");
 
@@ -53,31 +58,21 @@ fn main() {
     println!("\n\n\n");
 
     println!("INTEGRATION OF FUNCTIONS");
-    let mut j_max_vec: Vec<i32> = Vec::new();
-    let _file_read_result = utils::read_numbers_from_file("input.txt".to_string(), &mut j_max_vec);
+    let j_max = utils::read_number_from_file("input.txt".to_string()).unwrap();
 
     println!("\n\nTrapedozial Rule");
     println!("{}", integration::trapedozial_rule(0.0, 3.0, 40));
 
     println!("\n\nIterative Trapedozial Rule");
-    let mut result_vec = Vec::new();
-	integration::q_trapedozial_rule_vec(0.0, 3.0, &j_max_vec, &mut result_vec);
-
-    for k in 0..result_vec.len() {
-       println!("{}", result_vec[k]);
-    }
+    let integration_result = integration::q_trapedozial_rule(0.0, 40.0, j_max);
+    println!("{}", integration_result);
 
     println!("\n\nSimpson's Rule");
-	println!("{}", integration::q_simpsons_rule(0.0, 3.0, 40) );
+    println!("{}", integration::q_simpsons_rule(0.0, 3.0, 40));
 
     println!("\n\nIterative Simpson's Rule");
-    let mut result_vec = Vec::new();
-    integration::q_simpsons_rule_vec(0.0, 3.0, &j_max_vec, &mut result_vec);
-
-    for k in 0..result_vec.len() {
-        println!("{}", result_vec[k]);
-    }
-
+    let integration_result = integration::q_simpsons_rule(0.0, 40.0, j_max);
+    println!("{}", integration_result);
     println!("\n\nGauss-Legendre");
-    println!("{}", integration::q_gauss_legendre(0.0, 3.0) );
+    println!("{}", integration::q_gauss_legendre(0.0, 4.0, 5));
 }
