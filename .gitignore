@@ -4,3 +4,4 @@
 **/*.rs.bk
 
 input.txt
+cmake-build-debug/CMakeFiles/clion-log.txt
