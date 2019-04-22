@@ -1,9 +1,10 @@
 [package]
 name = "numerical_methods_rust"
-version = "0.2.1"
+version = "1.0.0"
 authors = ["bencelaszlo <bencelaszlo@protonmail.com>"]
 
 [dependencies]
+coarsetime = "^0.1.10"
 
 [profile.dev]
 opt-level = 3
